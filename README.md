@@ -62,10 +62,6 @@ Build the desktop installer:
 npm run dist
 ```
 
-## Privacy Boundary
-
-This repository does not include personal skills, prompts, local Claude settings, build outputs, or dependency folders. The app is designed to operate on local folders at runtime; those local files should not be committed to source control.
-
 ## Tech Stack
 
 - Electron
