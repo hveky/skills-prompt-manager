@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-![Skills Prompt Manager 主图](docs/images/hero.svg)
+![Skills Prompt Manager 主图](docs/images/hero.png)
 
 Skills Prompt Manager 是一个用于管理 AI Skills 和可复用 Prompts 的桌面应用。它为 skill 作者提供一个干净的本地工作台：浏览 bundled files、编辑 `SKILL.md`、预览 Markdown 指令、查看代码资源，并一键复制不含 frontmatter 的 prompt 正文。
 
@@ -17,11 +17,11 @@ Skills Prompt Manager 是一个用于管理 AI Skills 和可复用 Prompts 的�
 
 ## 截图
 
-![Skills 浏览器](docs/images/skills-browser.svg)
+![Skills 浏览器](docs/images/skills-browser.png)
 
-![代码预览](docs/images/code-preview.svg)
+![代码预览](docs/images/code-preview.png)
 
-![Prompt 复制流程](docs/images/prompt-copy.svg)
+![Prompt 复制流程](docs/images/prompt-copy.png)
 
 ## 支持的内容
 

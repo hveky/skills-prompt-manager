@@ -2,7 +2,7 @@
 
 [中文](README.zh-CN.md)
 
-![Skills Prompt Manager hero](docs/images/hero.svg)
+![Skills Prompt Manager hero](docs/images/hero.png)
 
 Skills Prompt Manager is a focused desktop app for managing AI skill packages and reusable prompts. It gives skill authors a clean workspace for browsing bundled files, editing `SKILL.md`, previewing Markdown instructions, reviewing code assets, and copying prompt bodies without frontmatter noise.
 
@@ -17,11 +17,11 @@ Skills Prompt Manager is a focused desktop app for managing AI skill packages an
 
 ## Screenshots
 
-![Skills browser](docs/images/skills-browser.svg)
+![Skills browser](docs/images/skills-browser.png)
 
-![Code preview](docs/images/code-preview.svg)
+![Code preview](docs/images/code-preview.png)
 
-![Prompt copy flow](docs/images/prompt-copy.svg)
+![Prompt copy flow](docs/images/prompt-copy.png)
 
 ## Supported Content
 

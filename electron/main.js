@@ -5,13 +5,14 @@ const os = require('os')
 
 const isDev = process.env.NODE_ENV === 'development'
 
-const CLAUDE_SKILLS_DIR = path.join(os.homedir(), '.claude', 'skills')
+const DATA_HOME = process.env.SKILLS_PROMPT_MANAGER_HOME || os.homedir()
+const CLAUDE_SKILLS_DIR = path.join(DATA_HOME, '.claude', 'skills')
 const SKILL_ROOTS = [
   { key: 'claude', label: 'Claude', dir: CLAUDE_SKILLS_DIR },
-  { key: 'codex', label: 'Codex', dir: path.join(os.homedir(), '.codex', 'skills') },
-  { key: 'agents', label: 'Agents', dir: path.join(os.homedir(), '.agents', 'skills') },
+  { key: 'codex', label: 'Codex', dir: path.join(DATA_HOME, '.codex', 'skills') },
+  { key: 'agents', label: 'Agents', dir: path.join(DATA_HOME, '.agents', 'skills') },
 ]
-const PROMPTS_DIR = path.join(os.homedir(), '.claude', 'prompts')
+const PROMPTS_DIR = path.join(DATA_HOME, '.claude', 'prompts')
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
