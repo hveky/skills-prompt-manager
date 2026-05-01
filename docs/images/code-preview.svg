@@ -1,0 +1,51 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#F8F7F4"/>
+  <rect x="72" y="60" width="1056" height="600" rx="22" fill="#FFFFFF" stroke="#DCD8CE"/>
+  <rect x="72" y="60" width="1056" height="54" rx="22" fill="#F3F1EB"/>
+  <text x="108" y="94" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="800" fill="#211F1B">Code-aware preview</text>
+  <rect x="72" y="114" width="260" height="546" fill="#F1EFEA"/>
+  <text x="102" y="158" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="800" letter-spacing="1.1" fill="#9D968C">FILES</text>
+  <text x="126" y="204" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#6F6A62">SKILL.md</text>
+  <text x="126" y="250" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#6F6A62">references</text>
+  <rect x="102" y="286" width="196" height="36" rx="8" fill="#FFFFFF"/>
+  <text x="126" y="309" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="800" fill="#211F1B">scripts/init_skill.py</text>
+  <text x="126" y="356" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#6F6A62">package.json</text>
+  <text x="126" y="402" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#6F6A62">styles.css</text>
+  <rect x="332" y="114" width="796" height="546" fill="#FFFFFF"/>
+  <text x="380" y="178" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="850" fill="#211F1B">scripts/init_skill.py</text>
+  <text x="380" y="210" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#9D968C">Codex / skill-creator / scripts/init_skill.py</text>
+  <rect x="916" y="168" width="82" height="34" rx="9" fill="#FFFFFF" stroke="#DCD8CE"/>
+  <text x="944" y="190" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#6F6A62">Preview</text>
+  <rect x="1010" y="168" width="78" height="34" rx="9" fill="#EDEAE3"/>
+  <text x="1040" y="190" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#6F6A62">Source</text>
+  <rect x="380" y="252" width="650" height="322" rx="12" fill="#F8F7F4" stroke="#DCD8CE"/>
+  <rect x="380" y="252" width="650" height="42" rx="12" fill="#FBFAF8"/>
+  <text x="406" y="278" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="1.2" fill="#9D968C">CODE</text>
+  <text x="976" y="278" font-family="Consolas, monospace" font-size="11" fill="#6F6A62">python</text>
+  <g font-family="Consolas, monospace" font-size="15">
+    <text x="408" y="326" fill="#AAA399">1</text>
+    <text x="450" y="326" fill="#005CC5">from</text>
+    <text x="492" y="326" fill="#24292E"> pathlib </text>
+    <text x="565" y="326" fill="#005CC5">import</text>
+    <text x="624" y="326" fill="#24292E"> Path</text>
+    <text x="408" y="362" fill="#AAA399">2</text>
+    <text x="450" y="362" fill="#D73A49">def</text>
+    <text x="484" y="362" fill="#6F42C1"> create_skill</text>
+    <text x="594" y="362" fill="#24292E">(name, target):</text>
+    <text x="408" y="398" fill="#AAA399">3</text>
+    <text x="482" y="398" fill="#24292E">root = Path(target) / name</text>
+    <text x="408" y="434" fill="#AAA399">4</text>
+    <text x="482" y="434" fill="#24292E">root.mkdir(parents=</text>
+    <text x="642" y="434" fill="#005CC5">True</text>
+    <text x="674" y="434" fill="#24292E">, exist_ok=</text>
+    <text x="768" y="434" fill="#005CC5">True</text>
+    <text x="804" y="434" fill="#24292E">)</text>
+    <text x="408" y="470" fill="#AAA399">5</text>
+    <text x="482" y="470" fill="#24292E">(root / </text>
+    <text x="552" y="470" fill="#032F62">"SKILL.md"</text>
+    <text x="638" y="470" fill="#24292E">).write_text(template)</text>
+    <text x="408" y="506" fill="#AAA399">6</text>
+    <text x="482" y="506" fill="#D73A49">return</text>
+    <text x="542" y="506" fill="#24292E"> root</text>
+  </g>
+</svg>
