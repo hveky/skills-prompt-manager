@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import Sidebar from './components/Sidebar'
 import DetailPanel from './components/DetailPanel'
 import NewItemModal from './components/NewItemModal'
@@ -8,10 +8,19 @@ function toId(name) {
   return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 }
 
+function normalizeTags(value) {
+  return String(value || '')
+    .split(',')
+    .map(t => t.trim())
+    .filter(Boolean)
+    .join(', ') || 'general'
+}
+
 export default function App() {
   const [tab, setTab] = useState('skills')
   const [items, setItems] = useState({ skills: [], prompts: [] })
   const [selected, setSelected] = useState(null) // { type, id }
+  const [skillSourceFilter, setSkillSourceFilter] = useState('all')
   const [skillFiles, setSkillFiles] = useState([])
   const [selectedFile, setSelectedFile] = useState(null)
   const [content, setContent] = useState('')
@@ -70,6 +79,26 @@ export default function App() {
     setDirty(false)
     setMode('preview')
   }, [])
+
+  const handleSkillSourceFilterChange = useCallback((source) => {
+    if (source === skillSourceFilter) return
+
+    const hidesSelectedSkill = selected?.type === 'skills' &&
+      source !== 'all' &&
+      selected.source !== source
+
+    if (hidesSelectedSkill && !confirmDiscard()) return
+
+    setSkillSourceFilter(source)
+    if (hidesSelectedSkill) {
+      setSelected(null)
+      setSelectedFile(null)
+      setSkillFiles([])
+      setContent('')
+      setDirty(false)
+      setMode('preview')
+    }
+  }, [selected, skillSourceFilter])
 
   const selectSkillFile = useCallback(async (filePath) => {
     if (!selected || selected.type !== 'skills') return
@@ -134,12 +163,13 @@ export default function App() {
     }
   }, [selected, loadAll])
 
-  const createItem = useCallback(async ({ name, description }) => {
+  const createItem = useCallback(async ({ name, description, tags }) => {
     const type = modal.type
     const id = toId(name)
+    const promptTags = normalizeTags(tags)
     const initial = type === 'skill'
       ? `---\nname: ${id}\ndescription: ${description || 'A new skill'}\n---\n\n# ${name}\n\n`
-      : `---\nname: ${name}\ndescription: ${description || 'A new prompt'}\ntags: general\n---\n\n`
+      : `---\nname: ${name}\ndescription: ${description || 'A new prompt'}\ntags: ${promptTags}\n---\n\n`
     try {
       if (type === 'skill') await window.api.skills.write(id, initial)
       else await window.api.prompts.write(id, initial)
@@ -148,7 +178,8 @@ export default function App() {
       const selectedId = type === 'skill' ? `claude:${id}` : id
       setModal(null)
       setTab(tabName)
-      setSelected({ type: tabName, id: selectedId, name, source: 'claude', sourceLabel: 'Claude', relativePath: id })
+      if (type === 'skill') setSkillSourceFilter('claude')
+      setSelected({ type: tabName, id: selectedId, name, source: 'claude', sourceLabel: 'Claude Code', relativePath: id })
       setSelectedFile(type === 'skill' ? 'SKILL.md' : null)
       setSkillFiles(type === 'skill' ? [{ name: 'SKILL.md', type: 'file', path: 'SKILL.md' }] : [])
       setContent(initial)
@@ -171,7 +202,11 @@ export default function App() {
     return () => window.removeEventListener('keydown', handler)
   }, [])
 
-  const currentItems = tab === 'skills' ? items.skills : items.prompts
+  const currentItems = useMemo(() => {
+    if (tab !== 'skills') return items.prompts
+    if (skillSourceFilter === 'all') return items.skills
+    return items.skills.filter(item => item.source === skillSourceFilter)
+  }, [items, skillSourceFilter, tab])
 
   return (
     <div className="app">
@@ -192,7 +227,9 @@ export default function App() {
           tab={tab}
           items={currentItems}
           selectedId={selected?.id}
+          skillSourceFilter={skillSourceFilter}
           onTabChange={handleTabChange}
+          onSkillSourceFilterChange={handleSkillSourceFilterChange}
           onSelect={item => selectItem(tab, item)}
           onNew={type => setModal({ type })}
           onDelete={item => deleteItem(tab, item)}

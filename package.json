@@ -2,6 +2,7 @@
   "name": "skills-prompt-manager",
   "version": "1.0.0",
   "description": "Desktop manager for AI skills and reusable prompts",
+  "author": "Hveky",
   "main": "electron/main.js",
   "scripts": {
     "dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && cross-env NODE_ENV=development electron .\"",
@@ -38,6 +39,7 @@
     ],
     "win": {
       "target": "nsis",
+      "icon": "build/app-icon.ico",
       "signAndEditExecutable": false
     }
   }

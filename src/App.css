@@ -185,6 +185,55 @@ button {
   color: white;
 }
 
+.source-filter-wrap {
+  flex-shrink: 0;
+  padding: 8px 8px 7px;
+  border-bottom: 1px solid var(--border);
+}
+
+.source-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 6px 6px;
+  font-size: 11px;
+  font-weight: 750;
+  color: var(--text-3);
+}
+
+.source-filter {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.source-filter-btn {
+  min-width: 0;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.42);
+  color: var(--text-2);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: background 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s;
+}
+.source-filter-btn:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+.source-filter-btn.active {
+  background: var(--panel);
+  border-color: var(--accent);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(31, 29, 26, 0.1);
+}
+
 .item-list {
   flex: 1;
   min-height: 0;
@@ -233,7 +282,7 @@ button {
 }
 .source-badge {
   flex-shrink: 0;
-  max-width: 70px;
+  max-width: 96px;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 2px 6px;
@@ -244,6 +293,7 @@ button {
   font-size: 10px;
   font-weight: 750;
 }
+.source-claude { color: #7b4938; background: #f7e2d8; border-color: #e6b9a5; }
 .source-codex { color: #6f5a12; background: #fbf1c7; border-color: #ead991; }
 .source-agents { color: #3d6f63; background: #ddf2ec; border-color: #b8ded2; }
 .item-path {

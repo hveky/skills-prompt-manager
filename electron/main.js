@@ -8,7 +8,7 @@ const isDev = process.env.NODE_ENV === 'development'
 const DATA_HOME = process.env.SKILLS_PROMPT_MANAGER_HOME || os.homedir()
 const CLAUDE_SKILLS_DIR = path.join(DATA_HOME, '.claude', 'skills')
 const SKILL_ROOTS = [
-  { key: 'claude', label: 'Claude', dir: CLAUDE_SKILLS_DIR },
+  { key: 'claude', label: 'Claude Code', dir: CLAUDE_SKILLS_DIR },
   { key: 'codex', label: 'Codex', dir: path.join(DATA_HOME, '.codex', 'skills') },
   { key: 'agents', label: 'Agents', dir: path.join(DATA_HOME, '.agents', 'skills') },
 ]

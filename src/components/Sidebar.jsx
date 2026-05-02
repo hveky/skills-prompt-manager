@@ -1,6 +1,23 @@
-import { FileText, Plus, Sparkles, Trash2 } from 'lucide-react'
+import { FileText, ListFilter, Plus, Sparkles, Trash2 } from 'lucide-react'
 
-export default function Sidebar({ tab, items, selectedId, onTabChange, onSelect, onNew, onDelete }) {
+const skillSourceOptions = [
+  { value: 'all', label: 'All' },
+  { value: 'claude', label: 'Claude Code' },
+  { value: 'codex', label: 'Codex' },
+  { value: 'agents', label: 'Agents' },
+]
+
+export default function Sidebar({
+  tab,
+  items,
+  selectedId,
+  skillSourceFilter,
+  onTabChange,
+  onSkillSourceFilterChange,
+  onSelect,
+  onNew,
+  onDelete,
+}) {
   return (
     <aside className="sidebar">
       <div className="tab-row">
@@ -28,6 +45,28 @@ export default function Sidebar({ tab, items, selectedId, onTabChange, onSelect,
           <Plus size={15} strokeWidth={2.4} />
         </button>
       </div>
+
+      {tab === 'skills' && (
+        <div className="source-filter-wrap">
+          <div className="source-filter-label">
+            <ListFilter size={13} />
+            <span>来源</span>
+          </div>
+          <div className="source-filter" aria-label="Skill 来源筛选">
+            {skillSourceOptions.map(option => (
+              <button
+                key={option.value}
+                type="button"
+                className={`source-filter-btn ${skillSourceFilter === option.value ? 'active' : ''}`}
+                onClick={() => onSkillSourceFilterChange(option.value)}
+                title={option.label}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="item-list">
         {items.length === 0 && (

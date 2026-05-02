@@ -1,20 +1,32 @@
 import { useState, useEffect, useRef } from 'react'
 
+function normalizeTags(value) {
+  return String(value || '')
+    .split(',')
+    .map(t => t.trim())
+    .filter(Boolean)
+    .join(', ') || 'general'
+}
+
 export default function NewItemModal({ type, onConfirm, onCancel }) {
+  const isPrompt = type === 'prompt'
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [tags, setTags] = useState('')
+  const [tags, setTags] = useState(isPrompt ? 'general' : '')
   const nameRef = useRef(null)
 
   useEffect(() => { nameRef.current?.focus() }, [])
 
-  const isPrompt = type === 'prompt'
   const label = isPrompt ? 'Prompt' : 'Skill'
 
   const handleSubmit = e => {
     e.preventDefault()
     if (!name.trim()) return
-    onConfirm({ name: name.trim(), description: description.trim(), tags: tags.trim() })
+    onConfirm({
+      name: name.trim(),
+      description: description.trim(),
+      tags: isPrompt ? normalizeTags(tags) : '',
+    })
   }
 
   const handleKey = e => {
