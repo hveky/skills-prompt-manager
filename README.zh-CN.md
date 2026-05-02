@@ -62,10 +62,6 @@ npm run build
 npm run dist
 ```
 
-## 隐私边界
-
-本仓库不包含个人 skills、prompts、本地 Claude 设置、构建产物或依赖目录。应用在运行时读取本地目录，这些本地文件不应提交到源码仓库。
-
 ## 技术栈
 
 - Electron
