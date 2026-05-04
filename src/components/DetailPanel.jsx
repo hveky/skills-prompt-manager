@@ -137,6 +137,11 @@ export default function DetailPanel({
               <span className="detail-title">{title}</span>
               <span className="detail-subtitle">{sourceText}</span>
             </div>
+            {isSkill && (
+              <span className={`detail-status ${selected.enabled ? 'enabled' : 'disabled'}`}>
+                {selected.enabled ? '已启用' : '已关闭'}
+              </span>
+            )}
             {dirty && <span className="unsaved-dot" title="未保存" />}
           </div>
           <div className="detail-bar-right">

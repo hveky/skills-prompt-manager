@@ -21,6 +21,7 @@ export default function App() {
   const [items, setItems] = useState({ skills: [], prompts: [] })
   const [selected, setSelected] = useState(null) // { type, id }
   const [skillSourceFilter, setSkillSourceFilter] = useState('all')
+  const [skillStatusFilter, setSkillStatusFilter] = useState('all')
   const [skillFiles, setSkillFiles] = useState([])
   const [selectedFile, setSelectedFile] = useState(null)
   const [content, setContent] = useState('')
@@ -37,6 +38,7 @@ export default function App() {
       window.api.prompts.list(),
     ])
     setItems({ skills, prompts })
+    return { skills, prompts }
   }, [])
 
   useEffect(() => { loadAll() }, [loadAll])
@@ -99,6 +101,26 @@ export default function App() {
       setMode('preview')
     }
   }, [selected, skillSourceFilter])
+
+  const handleSkillStatusFilterChange = useCallback((status) => {
+    if (status === skillStatusFilter) return
+
+    const hidesSelectedSkill = selected?.type === 'skills' &&
+      status !== 'all' &&
+      (status === 'enabled') !== selected.enabled
+
+    if (hidesSelectedSkill && !confirmDiscard()) return
+
+    setSkillStatusFilter(status)
+    if (hidesSelectedSkill) {
+      setSelected(null)
+      setSelectedFile(null)
+      setSkillFiles([])
+      setContent('')
+      setDirty(false)
+      setMode('preview')
+    }
+  }, [selected, skillStatusFilter])
 
   const selectSkillFile = useCallback(async (filePath) => {
     if (!selected || selected.type !== 'skills') return
@@ -163,6 +185,31 @@ export default function App() {
     }
   }, [selected, loadAll])
 
+  const setSkillEnabled = useCallback(async (item, enabled) => {
+    if (selected?.id === item.id && !confirmDiscard()) return
+
+    try {
+      await window.api.skills.setEnabled(item.id, enabled)
+      const refreshed = await loadAll()
+      const updated = refreshed.skills.find(skill => skill.id === item.id) || { ...item, enabled }
+
+      if (selected?.id === item.id) {
+        const [c, files] = await Promise.all([
+          window.api.skills.readFile(item.id, 'SKILL.md'),
+          window.api.skills.listFiles(item.id),
+        ])
+        setSelected(prev => prev ? { ...prev, ...updated } : prev)
+        setSelectedFile('SKILL.md')
+        setSkillFiles(files)
+        setContent(c || '')
+        setDirty(false)
+        setMode('preview')
+      }
+    } catch (err) {
+      alert('切换失败: ' + err.message)
+    }
+  }, [selected, loadAll])
+
   const createItem = useCallback(async ({ name, description, tags }) => {
     const type = modal.type
     const id = toId(name)
@@ -179,7 +226,7 @@ export default function App() {
       setModal(null)
       setTab(tabName)
       if (type === 'skill') setSkillSourceFilter('claude')
-      setSelected({ type: tabName, id: selectedId, name, source: 'claude', sourceLabel: 'Claude Code', relativePath: id })
+      setSelected({ type: tabName, id: selectedId, name, enabled: true, source: 'claude', sourceLabel: 'Claude Code', relativePath: id })
       setSelectedFile(type === 'skill' ? 'SKILL.md' : null)
       setSkillFiles(type === 'skill' ? [{ name: 'SKILL.md', type: 'file', path: 'SKILL.md' }] : [])
       setContent(initial)
@@ -204,9 +251,13 @@ export default function App() {
 
   const currentItems = useMemo(() => {
     if (tab !== 'skills') return items.prompts
-    if (skillSourceFilter === 'all') return items.skills
-    return items.skills.filter(item => item.source === skillSourceFilter)
-  }, [items, skillSourceFilter, tab])
+    return items.skills.filter(item => {
+      const sourceMatches = skillSourceFilter === 'all' || item.source === skillSourceFilter
+      const statusMatches = skillStatusFilter === 'all' ||
+        (skillStatusFilter === 'enabled' ? item.enabled : !item.enabled)
+      return sourceMatches && statusMatches
+    })
+  }, [items, skillSourceFilter, skillStatusFilter, tab])
 
   return (
     <div className="app">
@@ -228,11 +279,14 @@ export default function App() {
           items={currentItems}
           selectedId={selected?.id}
           skillSourceFilter={skillSourceFilter}
+          skillStatusFilter={skillStatusFilter}
           onTabChange={handleTabChange}
           onSkillSourceFilterChange={handleSkillSourceFilterChange}
+          onSkillStatusFilterChange={handleSkillStatusFilterChange}
           onSelect={item => selectItem(tab, item)}
           onNew={type => setModal({ type })}
           onDelete={item => deleteItem(tab, item)}
+          onToggleSkillEnabled={setSkillEnabled}
         />
         <DetailPanel
           selected={selected}

@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld('api', {
     read:      (id)         => ipcRenderer.invoke('skills:read', id),
     write:     (id, c)      => ipcRenderer.invoke('skills:write', { id, content: c }),
     delete:    (id)         => ipcRenderer.invoke('skills:delete', id),
+    setEnabled:(id, enabled)=> ipcRenderer.invoke('skills:set-enabled', { id, enabled }),
     listFiles: (id)         => ipcRenderer.invoke('skills:list-files', id),
     readFile:  (id, fp)     => ipcRenderer.invoke('skills:read-file', { id, filePath: fp }),
     writeFile: (id, fp, c)  => ipcRenderer.invoke('skills:write-file', { id, filePath: fp, content: c }),
@@ -21,6 +22,7 @@ contextBridge.exposeInMainWorld('api', {
     minimize: () => ipcRenderer.invoke('window:minimize'),
     maximize: () => ipcRenderer.invoke('window:maximize'),
     close:    () => ipcRenderer.invoke('window:close'),
+    quit:     () => ipcRenderer.invoke('window:quit'),
   },
   clipboard: {
     writeText: (text) => clipboard.writeText(text),
