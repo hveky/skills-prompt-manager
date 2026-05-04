@@ -83,6 +83,7 @@ export default function DetailPanel({
   onModeChange,
   onContentChange,
   onSave,
+  onToggleSkillEnabled,
 }) {
   const [copied, setCopied] = useState(false)
   const isSkill = selected?.type === 'skills'
@@ -137,11 +138,6 @@ export default function DetailPanel({
               <span className="detail-title">{title}</span>
               <span className="detail-subtitle">{sourceText}</span>
             </div>
-            {isSkill && (
-              <span className={`detail-status ${selected.enabled ? 'enabled' : 'disabled'}`}>
-                {selected.enabled ? '已启用' : '已关闭'}
-              </span>
-            )}
             {dirty && <span className="unsaved-dot" title="未保存" />}
           </div>
           <div className="detail-bar-right">
@@ -149,6 +145,23 @@ export default function DetailPanel({
               <button className="icon-btn copy-btn" onClick={copyPromptBody} title="复制正文">
                 {copied ? <Check size={17} /> : <Clipboard size={17} />}
                 <span>{copied ? '已复制' : '复制正文'}</span>
+              </button>
+            )}
+            {isSkill && (
+              <button
+                className={`skill-toggle ${selected.enabled ? 'enabled' : 'disabled'}`}
+                type="button"
+                role="switch"
+                aria-checked={selected.enabled}
+                title={selected.enabled ? '关闭 Skill' : '启用 Skill'}
+                onClick={() => onToggleSkillEnabled(selected, !selected.enabled)}
+              >
+                <span className="skill-toggle-track">
+                  <span className="skill-toggle-thumb" />
+                </span>
+                <span className="skill-toggle-label">
+                  {selected.enabled ? '已启用' : '已关闭'}
+                </span>
               </button>
             )}
             <div className="seg" aria-label="内容模式">

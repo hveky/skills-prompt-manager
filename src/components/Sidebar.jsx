@@ -1,4 +1,4 @@
-import { FileText, ListFilter, Plus, Power, PowerOff, Sparkles, Trash2 } from 'lucide-react'
+import { FileText, ListFilter, Plus, Power, Sparkles, Trash2 } from 'lucide-react'
 
 const skillSourceOptions = [
   { value: 'all', label: 'All' },
@@ -25,7 +25,6 @@ export default function Sidebar({
   onSelect,
   onNew,
   onDelete,
-  onToggleSkillEnabled,
 }) {
   return (
     <aside className="sidebar">
@@ -108,18 +107,13 @@ export default function Sidebar({
         {items.map(item => (
           <div
             key={item.id}
-            className={`item-row ${selectedId === item.id ? 'selected' : ''} ${tab === 'skills' && !item.enabled ? 'disabled-skill' : ''}`}
+            className={`item-row ${selectedId === item.id ? 'selected' : ''}`}
             onClick={() => onSelect(item)}
           >
             <div className="item-body">
               <div className="item-title-row">
                 <div className="item-name">{item.name || item.id}</div>
                 {item.sourceLabel && <span className={`source-badge source-${item.source}`}>{item.sourceLabel}</span>}
-                {tab === 'skills' && (
-                  <span className={`status-badge ${item.enabled ? 'enabled' : 'disabled'}`}>
-                    {item.enabled ? '启用' : '关闭'}
-                  </span>
-                )}
               </div>
               {item.relativePath && (
                 <div className="item-path">{item.relativePath}</div>
@@ -135,18 +129,6 @@ export default function Sidebar({
                 </div>
               )}
             </div>
-            {tab === 'skills' && (
-              <button
-                className={`enable-btn ${item.enabled ? 'enabled' : 'disabled'}`}
-                title={item.enabled ? '关闭 Skill' : '启用 Skill'}
-                onClick={e => {
-                  e.stopPropagation()
-                  onToggleSkillEnabled(item, !item.enabled)
-                }}
-              >
-                {item.enabled ? <Power size={14} /> : <PowerOff size={14} />}
-              </button>
-            )}
             <button
               className="del-btn"
               title="删除"

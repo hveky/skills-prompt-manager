@@ -286,7 +286,6 @@ export default function App() {
           onSelect={item => selectItem(tab, item)}
           onNew={type => setModal({ type })}
           onDelete={item => deleteItem(tab, item)}
-          onToggleSkillEnabled={setSkillEnabled}
         />
         <DetailPanel
           selected={selected}
@@ -300,6 +299,7 @@ export default function App() {
           onModeChange={setMode}
           onContentChange={c => { setContent(c); setDirty(true) }}
           onSave={save}
+          onToggleSkillEnabled={setSkillEnabled}
         />
       </div>
 
