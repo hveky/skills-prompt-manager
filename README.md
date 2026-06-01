@@ -4,7 +4,7 @@
 
 ![Skills Prompt Manager hero](docs/images/hero.png)
 
-Skills Prompt Manager is a focused desktop app for managing AI skill packages and reusable prompts. It gives skill authors a clean workspace for browsing bundled files, editing `SKILL.md`, previewing Markdown instructions, reviewing code assets, and copying prompt bodies without frontmatter noise.
+Skills Prompt Manager is a focused desktop app for managing AI skill packages and reusable prompts. It gives skill authors a clean workspace for browsing bundled files, editing `SKILL.md`, previewing structured content, and copying prompts to the clipboard.
 
 ## Highlights
 
@@ -23,6 +23,10 @@ Skills Prompt Manager is a focused desktop app for managing AI skill packages an
 
 ![Prompt copy flow](docs/images/prompt-copy.png)
 
+![Skills management interface](docs/images/skills-interface.png)
+
+![Prompt editing view](docs/images/prompt-editing.png)
+
 ## Supported Content
 
 Skills are discovered by recursively finding `SKILL.md` files under:
@@ -35,7 +39,7 @@ Prompts are stored as Markdown files under:
 
 - `~/.claude/prompts`
 
-Markdown files are rendered as structured documents with a dedicated frontmatter panel. Common source files such as `.py`, `.json`, `.js`, `.jsx`, `.ts`, `.tsx`, `.css`, `.html`, `.yaml`, `.toml`, `.sh`, and `.ps1` are rendered in a code preview.
+Markdown files are rendered as structured documents with a dedicated frontmatter panel. Common source files such as `.py`, `.json`, `.js`, `.jsx`, `.ts`, `.tsx`, `.css`, `.html`, `.yaml`, `.toml`, and more are displayed with syntax highlighting.
 
 ## Install
 
