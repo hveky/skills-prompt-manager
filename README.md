@@ -17,9 +17,9 @@ Skills Prompt Manager is a focused desktop app for managing AI skill packages an
 
 ## Screenshots
 
-![Skills management interface](docs/images/skills-interface.png)
+![Skills management interface](docs/images/skipro.png)
 
-![Prompt editing view](docs/images/prompt-editing.png)
+![Prompt editing view](docs/images/skipro2.png)
 
 ![Skills browser](docs/images/skills-browser.png)
 
